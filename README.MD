@@ -29,7 +29,7 @@ GUI will be added soon.
 6. Done!
 
 ## 📸 Examples of Use
-<video src="Sources/0215.mp4" width="1000" height="500" controls></video>
+[![Watch the video](https://img.youtube.com/vi/<VIDEO_ID>/hqdefault.jpg)](https://youtu.be/NSsVZ6bzUFE)
 
 
 
