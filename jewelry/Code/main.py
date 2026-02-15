@@ -33,7 +33,6 @@ def move_mouse(x, y):
     )
 
 def create_countdown_window():
-    """Создает окно с отсчетом"""
     global root, countdown_value
     
     root = tk.Tk()
@@ -45,7 +44,7 @@ def create_countdown_window():
     
     label = tk.Label(
         root,
-        text=f"Старт через: {countdown_value}",
+        text=f"Start in: {countdown_value}",
         font=('Arial', 36, 'bold'),
         fg='lime',
         bg='black'
@@ -55,17 +54,17 @@ def create_countdown_window():
     def update_countdown():
         global countdown_value
         if countdown_value > 0:
-            label.config(text=f"Старт через: {countdown_value}")
+            label.config(text=f"Start in: {countdown_value}")
             countdown_value -= 1
             root.after(1000, update_countdown)
         else:
-            label.config(text="ПОЕХАЛИ!", fg='red')
+            label.config(text="GO!", fg='red')
             root.after(500, root.destroy)
     
     update_countdown()
     root.mainloop()
 
-print("Скрипт запущен!")
+print("Script runned!")
 
 overlay_thread = threading.Thread(target=create_countdown_window, daemon=True)
 overlay_thread.start()
@@ -85,7 +84,7 @@ try:
         
         time.sleep(speed)
     
-    print("Оборот завершен!")
+    print("End")
 
 except KeyboardInterrupt:
-    print("\nСкрипт остановлен пользователем.")
+    print("\nScript stopped.")
