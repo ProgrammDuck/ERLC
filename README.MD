@@ -36,7 +36,7 @@ GUI will be added soon.
 
 ## 📸 Examples of Use
 <p align="center" width="100%">
-<video src="https://youtu.be/NSsVZ6bzUFE" width="80%" controls></video>
+
 </p>
 
 
