@@ -35,9 +35,7 @@ GUI will be added soon.
 6. Done!
 
 ## 📸 Examples of Use
-<p align="center" width="100%">
-
-</p>
+- https://youtu.be/NSsVZ6bzUFE
 
 
 
