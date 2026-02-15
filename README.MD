@@ -17,15 +17,16 @@ GUI will be added soon.
 
 ## ⚙️ Usage
 1. Install [Python 3.x](https://www.python.org/downloads/)
-2. Open Roblox
-3. Enter the game
+2. Download script. 
+3. Open Roblox
+4. Enter the game
     * Go to the jewelry store and rob one of the tables
     * DO NOT move your cursor to the green box before starting the script
-4. Activate the script
+5. Activate the script
     * Start the script in explorer
     * You have 3 seconds to enter the Roblox game
     * Wait for completion
-5. Done!
+6. Done!
 
 ## 📸 Examples of Use
 <video src="Sources/0215.mp4" controls></video>
