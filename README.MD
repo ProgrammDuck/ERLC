@@ -18,6 +18,12 @@ GUI will be added soon.
 ## ⚙️ Usage
 1. Install [Python 3.x](https://www.python.org/downloads/)
 2. Download script. 
+3. Customize script for your monitor resolution
+    * ```center_x = 2560 /2```  
+    2560 replace to your resolution as x
+    * ```center_y = 1440 /2```  
+    1440 replace to your resolution as y
+    * Save changes
 3. Open Roblox
 4. Enter the game
     * Go to the jewelry store and rob one of the tables
@@ -29,7 +35,9 @@ GUI will be added soon.
 6. Done!
 
 ## 📸 Examples of Use
-[![Watch the video](https://img.youtube.com/vi/<VIDEO_ID>/hqdefault.jpg)](https://youtu.be/NSsVZ6bzUFE)
+<p align="center" width="100%">
+<video src="https://youtu.be/NSsVZ6bzUFE" width="80%" controls></video>
+</p>
 
 
 
