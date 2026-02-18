@@ -11,7 +11,3 @@ __pycache__/
 bot_logs.log
 *.log
 .venv
-
-# === BATS ===
-start.bat
-stop.bat

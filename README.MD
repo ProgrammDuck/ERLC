@@ -1,41 +1,46 @@
 <div align="center">
 
-# Jewelry Auto Rob
+# ER:LC Jewelry/House auto rob
 ![Picture of ER:LC](Sources/image.png)
+![Picture of ER:LC](Sources/image2.png)
 
 Created for [**ER:LC**](https://www.roblox.com/games/2534724415/Emergency-Response-Liberty-County)
 
 </div>
 
 ## 🚀 About
-**Jewelry Auto Rob** is NOT a cheat.              
-This is a Python script that moves your mouse around the center of the screen, automating the jewelry store robbery in ER:LC.  
+**ER:LC Jewelry/House auto rob** is NOT a cheat.              
+This is a Python script that moves your mouse around the center of the screen, automating the jewelry store or house robbery in ER:LC.  
 GUI will be added soon.
 
 ## 📋 Requirements
 - Python 3.x
+- opencv-python 
+- numpy 
+- mss 
+- keyboard
 
 ## ⚙️ Usage
-1. Install [Python 3.x](https://www.python.org/downloads/)
-2. Download script. 
-3. Customize script for your monitor resolution
-    * ```center_x = 2560 /2```  
-    2560 replace to your resolution as x
-    * ```center_y = 1440 /2```  
-    1440 replace to your resolution as y
+1. Install [Python 3.x](https://www.python.org/downloads/) ([3.14](https://www.python.org/downloads/release/python-3143/) is optimal)
+2. Download script
+3. Install requirements
+   * `pip install -r requirements.txt`
+4. Customize `config.json` for your monitor resolution
+    * `"CAPTURE_REGION": [995, 564, 569, 337]` for 2k monitors
+    * `"CAPTURE_REGION": [676, 380, 567, 346]` for default monitors (FullHD)
     * Save changes
-3. Open Roblox
-4. Enter the game
-    * Go to the jewelry store and rob one of the tables
-    * DO NOT move your cursor to the green box before starting the script
-5. Activate the script
-    * Start the script in explorer
-    * You have 3 seconds to enter the Roblox game
-    * Wait for completion
-6. Done!
+    * [There's no my screen resolution here](https://youtu.be/jSoLQPH3cCk)
+5. Change the keybinds in `config.json`
+6. Open Roblox
+7. Enter the game
+8. Activate the script
+    * Start the `Start nowindows.bat` or `Start.bat` in explorer
+    * As default **F5 To rob a jewelry**, **F6 to rob a house**, **F8 for stop scripts**
+    * **Do not** mess script in active.
+9. Done!
 
 ## 📸 Examples of Use
-- https://youtu.be/NSsVZ6bzUFE
+- https://youtu.be/fBIddWWB1FY
 
 
 

@@ -1,0 +1,12 @@
+{
+    "House": {
+        "CAPTURE_REGION": [995, 564, 569, 337],
+        "START": "F6",
+        "CLOSE": "F8"
+    },
+    "Jewelry": {
+        "START": "F5",
+        "CLOSE": "F8"
+    }
+}
+
