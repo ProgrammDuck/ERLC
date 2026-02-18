@@ -7,9 +7,25 @@ import threading
 import sys
 from mss import mss
 
+# no argument = default startup
+# with agrument "--debug" = with debug window
+
 CAPTURE_REGION = (995, 564, 569, 337)
 # CAPTURE_REGION = (995, 564, 569, 337) - 2K
 # CAPTURE_REGION = (676, 380, 567, 346) - FullHd
+user32 = ctypes.windll.user32
+x = user32.GetSystemMetrics(0)
+y = user32.GetSystemMetrics(1)
+resolution = f"{x}x{y}"
+
+print(f"{resolution} --- resolution")
+if resolution == "1920x1080":
+    CAPTURE_REGION = (676, 380, 567, 346)
+elif resolution == "2560x1440":
+    CAPTURE_REGION = (995, 564, 569, 337)
+else:
+    raise ValueError(f"Unsupported resolution: {resolution}. Find your region and paste it in if-else")
+
 GLOBAL_CLICK_COOLDOWN = 0
 CLICK_OFFSET_PX = 1
 

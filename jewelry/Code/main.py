@@ -7,8 +7,11 @@ import tkinter as tk
 MOUSEEVENTF_ABSOLUTE = 0x8000
 MOUSEEVENTF_MOVE = 0x0001
 
-center_x = 2560 /2
-center_y = 1440 /2
+user32 = ctypes.windll.user32
+center_x = user32.GetSystemMetrics(0) / 2 
+center_y = user32.GetSystemMetrics(1) / 2 
+print(f"{center_x}x{center_y} --- center,\n{center_x*2}x{center_y*2} --- resolution")
+
 radius = 270
 
 steps = 360
