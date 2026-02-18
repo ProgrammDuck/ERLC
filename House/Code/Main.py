@@ -1,6 +1,7 @@
 import ctypes
 import ctypes.wintypes as wt
 import numpy as np
+import json
 import cv2
 import time
 import threading
@@ -10,21 +11,16 @@ from mss import mss
 # no argument = default startup
 # with agrument "--debug" = with debug window
 
-CAPTURE_REGION = (995, 564, 569, 337)
-# CAPTURE_REGION = (995, 564, 569, 337) - 2K
-# CAPTURE_REGION = (676, 380, 567, 346) - FullHd
-user32 = ctypes.windll.user32
-x = user32.GetSystemMetrics(0)
-y = user32.GetSystemMetrics(1)
-resolution = f"{x}x{y}"
+with open("config.json") as f:
+    config = json.load(f)
 
-print(f"{resolution} --- resolution")
-if resolution == "1920x1080":
-    CAPTURE_REGION = (676, 380, 567, 346)
-elif resolution == "2560x1440":
-    CAPTURE_REGION = (995, 564, 569, 337)
-else:
-    raise ValueError(f"Unsupported resolution: {resolution}. Find your region and paste it in if-else")
+raw = config["House"]["CAPTURE_REGION"]
+CAPTURE_REGION = tuple(int(x) for x in raw) if raw else None
+# "CAPTURE_REGION": [995, 564, 569, 337] - 2K
+# "CAPTURE_REGION": [676, 380, 567, 346] - FullHd
+
+Start_keybind = config["House"]["START"]
+Close_keybind = config["House"]["CLOSE"]
 
 GLOBAL_CLICK_COOLDOWN = 0
 CLICK_OFFSET_PX = 1
@@ -164,7 +160,7 @@ class PinDetector:
         cv2.putText(vis, status, (10, 28), cv2.FONT_HERSHEY_SIMPLEX, 0.9, scol, 2)
         cv2.putText(vis, f"Tracking: {len(self.clicked_pins)} pins",
                     (10, 48), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (200, 200, 200), 1)
-        cv2.putText(vis, "F6=pause  F8=stop  ESC=close",
+        cv2.putText(vis, f"{Start_keybind}=pause  {Close_keybind}=stop  ESC=close",
                     (10, vis.shape[0] - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.38, (180, 180, 180), 1)
 
         cv2.imshow("Pin Detector v5", vis)
@@ -175,7 +171,7 @@ class PinDetector:
         print("\n" + "=" * 54)
         print("  ER:LC house auto rob v5")
         print(f"  Click offset: {CLICK_OFFSET_PX}px | Cooldown: {GLOBAL_CLICK_COOLDOWN}s")
-        print("  F6 = Start/Pause   |   F8 = Stop")
+        print(F"  {Start_keybind} = Start/Pause   |   {Close_keybind} = Stop")
         print("=" * 54)
 
         if CAPTURE_REGION:
@@ -190,7 +186,7 @@ class PinDetector:
             print("[WARN] CAPTURE_REGION not set — capturing full screen")
 
         print(f"[INFO] Debug: {'ON' if debug else 'OFF'}")
-        print("[INFO] Running...\n")
+        print("[INFO] Paused...\n")
 
         while self.running:
             if self.paused:
@@ -218,16 +214,16 @@ def setup_hotkeys(det: PinDetector):
 
     def toggle():
         det.paused = not det.paused
-        print("[F6]", "PAUSED" if det.paused else "RUNNING")
+        print(F"[{Start_keybind}]", "PAUSED" if det.paused else "RUNNING")
 
     def stop():
         det.running = False
         det.paused  = True
-        print("[F8] Stopping...")
+        print(f"[{Close_keybind}] Stopping...")
 
-    kb.add_hotkey("F6", toggle)
-    kb.add_hotkey("F8", stop)
-    print("[INFO] Hotkeys: F6=pause, F8=stop")
+    kb.add_hotkey(F"{Start_keybind}", toggle)
+    kb.add_hotkey(f"{Close_keybind}", stop)
+    print(F"[INFO] Hotkeys: {Start_keybind}=pause, {Close_keybind}=stop")
 
 
 if __name__ == "__main__":

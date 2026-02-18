@@ -1,11 +1,17 @@
 import math
+import json
 import time
 import ctypes
-import threading
-import tkinter as tk
+import keyboard
 
 MOUSEEVENTF_ABSOLUTE = 0x8000
 MOUSEEVENTF_MOVE = 0x0001
+
+with open("config.json") as f:
+    config = json.load(f)
+
+Start_keybind = config["Jewelry"]["START"].lower()
+Close_keybind = config["Jewelry"]["CLOSE"].lower()
 
 user32 = ctypes.windll.user32
 center_x = user32.GetSystemMetrics(0) / 2 
@@ -13,12 +19,11 @@ center_y = user32.GetSystemMetrics(1) / 2
 print(f"{center_x}x{center_y} --- center,\n{center_x*2}x{center_y*2} --- resolution")
 
 radius = 270
-
 steps = 360
 speed = 0.0216
 
-countdown_value = 3
-root = None
+running = False
+exit_flag = False
 
 def move_mouse(x, y):
     screen_width = ctypes.windll.user32.GetSystemMetrics(0)
@@ -35,59 +40,49 @@ def move_mouse(x, y):
         0
     )
 
-def create_countdown_window():
-    global root, countdown_value
-    
-    root = tk.Tk()
-    root.attributes('-topmost', True)
-    root.attributes('-alpha', 0.8)
-    root.overrideredirect(True)
-    root.geometry('400x150+760+400')
-    root.config(bg='black')
-    
-    label = tk.Label(
-        root,
-        text=f"Start in: {countdown_value}",
-        font=('Arial', 36, 'bold'),
-        fg='lime',
-        bg='black'
-    )
-    label.pack(expand=True)
-    
-    def update_countdown():
-        global countdown_value
-        if countdown_value > 0:
-            label.config(text=f"Start in: {countdown_value}")
-            countdown_value -= 1
-            root.after(1000, update_countdown)
-        else:
-            label.config(text="GO!", fg='red')
-            root.after(500, root.destroy)
-    
-    update_countdown()
-    root.mainloop()
+def on_start_press():
+    global running
+    running = not running
+    if running:
+        print("Started!")
+    else:
+        print("Stopped!")
 
-print("Script runned!")
+def on_close_press():
+    global exit_flag
+    print("Script stopped.")
+    exit_flag = True
 
-overlay_thread = threading.Thread(target=create_countdown_window, daemon=True)
-overlay_thread.start()
+keyboard.add_hotkey(Start_keybind, on_start_press)
+keyboard.add_hotkey(Close_keybind, on_close_press)
 
-time.sleep(4)
+print("Script ready!")
+print(f"Press {Start_keybind.upper()} to start/stop")
+print(f"Press {Close_keybind.upper()} to exit")
 
 try:
-    angle = -90
-    
-    for i in range(steps):
-        x = center_x + radius * math.cos(math.radians(angle))
-        y = center_y + radius * math.sin(math.radians(angle))
+    while not exit_flag:
+        if running:
+            angle = -90
+            
+            for i in range(steps):
+                if not running or exit_flag:
+                    break
+                    
+                x = center_x + radius * math.cos(math.radians(angle))
+                y = center_y + radius * math.sin(math.radians(angle))
+                
+                move_mouse(x, y)
+                
+                angle += 360 / steps
+                
+                time.sleep(speed)
+            
+            if running:
+                print("Cycle completed")
+                running = False
         
-        move_mouse(x, y)
-        
-        angle += 360 / steps
-        
-        time.sleep(speed)
-    
-    print("End")
+        time.sleep(0.1)
 
 except KeyboardInterrupt:
     print("\nScript stopped.")
